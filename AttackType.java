@@ -1,0 +1,3 @@
+enum AttackType {
+	PUNCH, KICK;
+}
