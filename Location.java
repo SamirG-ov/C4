@@ -1,5 +1,3 @@
-package actualone;
-
 //Gamemap1  & char[] [] = map
 
 public class Location {

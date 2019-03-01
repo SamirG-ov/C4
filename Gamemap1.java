@@ -1,5 +1,3 @@
-package actualone;
-
 public class Gamemap1{
 //game map
 public static void main(String[] args){
