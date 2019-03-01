@@ -1,9 +1,5 @@
 public class Gamemap1{
 //game map
-public static void main(String[] args){
-	Gamemap1 gamemap = new Gamemap1();
-	gamemap.drawMap();
-}
 
 private static char[][] map = new char[][] {
 	{'X','X','X','X','X'},
@@ -14,6 +10,14 @@ private static char[][] map = new char[][] {
 	{'X',' ',' ',' ','X'},
 	{'X','X','X','X','X'}
 };
+public Gamemap1(int playerLocX, int playerLocY){
+	Location playerLoc = new Location();
+	playerLoc.setY(playerLocY);
+	playerLoc.setX(playerLocX);
+	
+	map[playerLoc.getY()][playerLoc.getX()] = 'P';
+	
+}
 //print for game map
 public static void drawMap(){
 System.out.println();
@@ -29,29 +33,25 @@ System.out.println();
 
 public void moving(Direction x, Location loc){
 	// sets start position
-	map[2][2]= 'P';
 	// replaces last spot with an empty spot
 	// sets new player spot too
+	char temp = map[loc.getY()][loc.getX()];
+	map[loc.getY()][loc.getX()] = ' ';
+
+
 	if (x == Direction.LEFT){
 		loc.setX(loc.getX()-1);
-		map[loc.getY()][loc.getX()+1] = ' ';
-		map[loc.getY()][loc.getX()] = 'P';
 	}
 	else if( x == Direction.DOWN){
 		loc.setY(loc.getY()+1);
-		map[loc.getY()-1][loc.getX()] = ' ';
-		map[loc.getY()][loc.getX()] = 'P';
 	}
 	else if (x == Direction.RIGHT){
 		loc.setX(loc.getX()+1);
-		map[loc.getY()][loc.getX()-1] = ' ';
-		map[loc.getY()][loc.getX()] = 'P';
 	}
 	else if( x == Direction.UP){
 		loc.setY(loc.getY()-1);
-		map[loc.getY()+1][loc.getX()] = ' ';
-		map[loc.getY()][loc.getX()] = 'P';
 	}
+	map[loc.getY()][loc.getX()] = temp;
 }
 
 }

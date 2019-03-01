@@ -8,6 +8,12 @@ public class Player {
 	//private Arraylist<Item> items;
 	private Location location;
 	
+	public Location getLocation(){
+		return location;
+	}
+	public void setLoc(Location loc){
+		location = loc;
+	}
 	
 	public Direction getDirection() {
 		

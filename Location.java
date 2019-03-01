@@ -6,11 +6,11 @@ public class Location {
 	private int ycoord;
 	
 	public int getX() {
-		return 0;
+		return xcoord;
 	}
 	
 	public int getY() {
-		return 0;
+		return ycoord;
 	}
 	public void setX(int x){
 		xcoord = x; 
