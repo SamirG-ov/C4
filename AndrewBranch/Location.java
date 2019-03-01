@@ -10,7 +10,7 @@ public class Location {
 	}
 	
 	public int getX() {
-		return xcoord;
+		return xcoord; 
 	}
 	
 	public int getY() {

@@ -21,8 +21,8 @@ public class TextApp {
 		playerDirection = gamemap.getPlayer().getDirection();
 		playerLocation = gamemap.getPlayer().getLocation();
 		
-		gamemap.drawMap(playerLocation);
 		gamemap.moving(playerDirection, playerLocation);
+		gamemap.drawMap(playerLocation); 
 		}
 	}
 	

@@ -43,7 +43,7 @@ System.out.println();
 
 public static void drawMap(Location loc){
 //System.out.println();
-map[loc.getY()][loc.getX()] = 'P';
+map[loc.getY()][loc.getX()] = 'P'; 
 for (int row=0; row<  map.length; row++)
 {
 	for(int col=0; col< map[row].length; col++){

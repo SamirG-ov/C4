@@ -20,7 +20,7 @@ public class Player {
 	}
 	
 	public Direction getDirection() {
-		
+		 
 		//scanner takes in user input which can be assigned to variables
 		Scanner input = new Scanner(System.in);
 		// variable it gets assigned to, so it can be used in if statements
