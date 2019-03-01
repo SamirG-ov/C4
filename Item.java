@@ -1,0 +1,6 @@
+
+
+enum Item {
+	POISON, POTION;
+}
+
