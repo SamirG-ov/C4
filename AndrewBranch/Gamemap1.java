@@ -1,7 +1,9 @@
-package AndrewBranch;
 public class Gamemap1{
 //game map
 
+private Location playerLoc;
+private Player user;
+	
 private static char[][] map = new char[][] {
 	{'X','X','X','X','X'},
 	{'X',' ',' ',' ','X'},
@@ -12,14 +14,19 @@ private static char[][] map = new char[][] {
 	{'X','X','X','X','X'}
 };
 public Gamemap1(int playerLocX, int playerLocY){
-	Location playerLoc = new Location();
-	playerLoc.setY(playerLocY);
-	playerLoc.setX(playerLocX);
+	playerLoc = new Location(playerLocX, playerLocY);
+	user = new Player(playerLoc);
 	
-	Player user = new Player(playerLoc);
 	map[playerLoc.getY()][playerLoc.getX()] = 'P';
 	
 }
+
+
+public Player getPlayer() {
+	return user;
+}
+
+
 //print for game map
 public static void drawMap(){
 System.out.println();
@@ -32,6 +39,23 @@ for (int row=0; row<  map.length; row++)
 }
 System.out.println();
 }
+
+
+public static void drawMap(Location loc){
+//System.out.println();
+map[loc.getY()][loc.getX()] = 'P';
+for (int row=0; row<  map.length; row++)
+{
+	for(int col=0; col< map[row].length; col++){
+		System.out.print(map[row][col] + "  ");
+	}
+	System.out.println();
+}
+System.out.println();
+
+
+}
+
 
 public void moving(Direction x, Location loc){
 	// sets start position

@@ -1,4 +1,3 @@
-package AndrewBranch;
 import java.util.Scanner;
 
 
@@ -10,8 +9,7 @@ public class Player {
 	private Location location;
 	
 	public Player(Location loc) {
-		Location playerLoc = new Location(loc.getX(), loc.);
-		//
+		location = new Location(loc.getX(), loc.getY());
 	}
 	
 	public Location getLocation(){
@@ -41,6 +39,7 @@ public class Player {
 			return Direction.RIGHT;
 		}
 		else{
+			System.out.println("Use the wasd keys to move");
 			return Direction.NONE;
 		}
 	}

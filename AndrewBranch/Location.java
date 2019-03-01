@@ -1,5 +1,4 @@
 //Gamemap1  & char[] [] = map
-package AndrewBranch;
 public class Location {
 	
 	private int xcoord;
