@@ -1,24 +1,31 @@
+import java.util.Random;
 public class Gamemap1{
 //game map
 
 private Location playerLoc;
 private Player user;
-	
 private static char[][] map = new char[][] {
-	{'X','X','X','X','X'},
-	{'X',' ',' ',' ','X'},
-	{'X',' ',' ',' ','X'},
-	{'X',' ',' ',' ','X'},
-	{'X',' ',' ',' ','X'},
-	{'X',' ',' ',' ','X'},
-	{'X','X','X','X','X'}
+    {'X','X','X','X','X','X','X','X'},
+    {'X',' ',' ',' ',' ',' ',' ','X'},
+    {'X',' ',' ',' ',' ',' ',' ','X'},
+    {'X',' ',' ',' ',' ',' ',' ','X'},
+    {'X',' ',' ',' ',' ',' ',' ','X'},
+    {'X',' ',' ',' ',' ',' ',' ','X'},
+    {'X','X','X','X','X','X','X','X'}
 };
+
 public Gamemap1(int playerLocX, int playerLocY){
-	playerLoc = new Location(playerLocX, playerLocY);
-	user = new Player(playerLoc);
-	
-	map[playerLoc.getY()][playerLoc.getX()] = 'P';
-	
+    playerLoc = new Location(playerLocX, playerLocY);
+    user = new Player(playerLoc);
+
+    Random randomObj = new Random();
+    int randomX = randomObj.nextInt((7 - 1)) + 1;
+    int randomY = randomObj.nextInt((6 - 1)) + 1;
+
+    map[playerLoc.getY()][playerLoc.getX()] = 'P';
+    map[randomY][randomX] = '$';
+
+
 }
 
 
@@ -78,6 +85,50 @@ public void moving(Direction x, Location loc){
 		loc.setY(loc.getY()-1);
 	}
 	map[loc.getY()][loc.getX()] = temp;
+}
+
+public int isValid(Location loc, Direction x){
+    /*
+     * checks if the direction inputed has a wall, or an object, if it does, returns false
+     */
+
+    if (x == Direction.LEFT){
+        if(map[loc.getY()][loc.getX()-1] == 'X'){
+            return 0;
+        }
+        else if(map[loc.getY()][loc.getX()-1] == '$'){
+            return 1;
+        }
+       
+    }
+    if (x == Direction.RIGHT){
+        if(map[loc.getY()][loc.getX()+1] == 'X'){
+            return 0;
+        }
+        else if(map[loc.getY()][loc.getX()+1] == '$'){
+            return 1;
+        }
+
+    }
+    if (x == Direction.UP){
+        if(map[loc.getY()-1][loc.getX()] == 'X'){
+            return 0;
+        }
+        else if(map[loc.getY()-1][loc.getX()] == '$'){
+            return 1;
+        }
+       
+    }
+    if (x == Direction.DOWN){
+        if(map[loc.getY()+1][loc.getX()] == 'X'){
+            return 0;
+        }
+        else if(map[loc.getY()+1][loc.getX()] == '$'){
+            return 1;
+        }
+        
+    }
+    return 2;
 }
 
 }
