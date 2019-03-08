@@ -2,6 +2,15 @@ import java.util.Random;
 public class Gamemap1{
 //game map
 
+/*
+*REFERENCES:
+*General coding knowledge: Used information learn in Nathaly Verwaal's Lectures and powerpoints
+*General coding knowledge: Java programming tutorials by "Absolute Zero" https://www.youtube.com/playlist?list=PLbjOkfqIeibi_rJSoDBKHFWxxVyJHj1Sa
+*Citation in line 26 used for generating a random integer between a range in line 33 & 34 https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
+*Citation in line 45 used method 1 listed in link to print our 2D array https://www.geeksforgeeks.org/print-2-d-array-matrix-java/
+*/
+
+
 private Location playerLoc;
 private Player user;
 private static char[][] map = new char[][] {
@@ -13,6 +22,8 @@ private static char[][] map = new char[][] {
     {'X',' ',' ',' ',' ',' ',' ','X'},
     {'X','X','X','X','X','X','X','X'}
 };
+
+//Citation for generating random numbers in java https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
 
 public Gamemap1(int playerLocX, int playerLocY){
     playerLoc = new Location(playerLocX, playerLocY);
@@ -33,7 +44,7 @@ public Player getPlayer() {
 	return user;
 }
 
-
+// Citation for method drawMap: https://www.geeksforgeeks.org/print-2-d-array-matrix-java/
 //print for game map
 public static void drawMap(){
 System.out.println();
@@ -50,7 +61,7 @@ System.out.println();
 
 public static void drawMap(Location loc){
 //System.out.println();
-map[loc.getY()][loc.getX()] = 'P'; 
+map[loc.getY()][loc.getX()] = 'P';
 for (int row=0; row<  map.length; row++)
 {
 	for(int col=0; col< map[row].length; col++){
@@ -68,6 +79,7 @@ public void moving(Direction x, Location loc){
 	// sets start position
 	// replaces last spot with an empty spot
 	// sets new player spot too
+
 	char temp = map[loc.getY()][loc.getX()];
 	map[loc.getY()][loc.getX()] = ' ';
 
@@ -99,7 +111,7 @@ public int isValid(Location loc, Direction x){
         else if(map[loc.getY()][loc.getX()-1] == '$'){
             return 1;
         }
-       
+
     }
     if (x == Direction.RIGHT){
         if(map[loc.getY()][loc.getX()+1] == 'X'){
@@ -117,7 +129,7 @@ public int isValid(Location loc, Direction x){
         else if(map[loc.getY()-1][loc.getX()] == '$'){
             return 1;
         }
-       
+
     }
     if (x == Direction.DOWN){
         if(map[loc.getY()+1][loc.getX()] == 'X'){
@@ -126,7 +138,7 @@ public int isValid(Location loc, Direction x){
         else if(map[loc.getY()+1][loc.getX()] == '$'){
             return 1;
         }
-        
+
     }
     return 2;
 }
