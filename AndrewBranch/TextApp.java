@@ -4,6 +4,8 @@ public class TextApp {
 	private Location playerLocation;
 	private Player user;
 	
+	//main researched online
+	
 	public static void main(String[] args){
 		TextApp ta = new TextApp();
 		ta.playgame();

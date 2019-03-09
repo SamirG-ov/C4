@@ -6,8 +6,9 @@ public class Gamemap1{
 *REFERENCES:
 *General coding knowledge: Used information learn in Nathaly Verwaal's Lectures and powerpoints
 *General coding knowledge: Java programming tutorials by "Absolute Zero" https://www.youtube.com/playlist?list=PLbjOkfqIeibi_rJSoDBKHFWxxVyJHj1Sa
-*Citation in line 26 used for generating a random integer between a range in line 33 & 34 https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
+*Citation in line 26 used for generating a random integer between a range in line 34 & 35 https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
 *Citation in line 45 used method 1 listed in link to print our 2D array https://www.geeksforgeeks.org/print-2-d-array-matrix-java/
+*Citation in line 84
 */
 
 
@@ -80,6 +81,7 @@ public void moving(Direction x, Location loc){
 	// replaces last spot with an empty spot
 	// sets new player spot too
 
+	//Coding knowledge and code inspisred from pervious computer computer science course
 	char temp = map[loc.getY()][loc.getX()];
 	map[loc.getY()][loc.getX()] = ' ';
 
