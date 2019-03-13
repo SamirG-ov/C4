@@ -62,7 +62,7 @@ System.out.println();
 }
 
 //draw map that takes a location as a parameter for when the map is drawn again the 2nd time,
-//this is because the P location needs to be updated everytime player moves, used at the end of playgame() in text app
+//this is because the P location needs to be updated visually in console everytime player moves, used at the end of playgame() in text app
 public static void drawMap(Location loc){
 map[loc.getY()][loc.getX()] = 'P';
 for (int row=0; row<  map.length; row++)
