@@ -6,9 +6,9 @@ public class Gamemap1{
 *REFERENCES:
 *General coding knowledge: Used information learn in Nathaly Verwaal's Lectures and powerpoints
 *General coding knowledge: Java programming tutorials by "Absolute Zero" https://www.youtube.com/playlist?list=PLbjOkfqIeibi_rJSoDBKHFWxxVyJHj1Sa
-*Citation in line 26 used for generating a random integer between a range in line 34 & 35 https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
-*Citation in line 45 used method 1 listed in link to print our 2D array https://www.geeksforgeeks.org/print-2-d-array-matrix-java/
-*Citation in line 84
+*Citation in inside gamemap1 constructor used for generating a random integer between a range https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
+*Citation for drawmap used method 1 listed in link to print our 2D array https://www.geeksforgeeks.org/print-2-d-array-matrix-java/
+*Citation in method moving
 */
 
 
@@ -26,27 +26,29 @@ private static char[][] map = new char[][] {
 
 //Citation for generating random numbers in java https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
 
+//CONSTRUCTOR
 public Gamemap1(int playerLocX, int playerLocY){
     playerLoc = new Location(playerLocX, playerLocY);
     user = new Player(playerLoc);
 
+
+// generates random number for game map size, and uses that number to play $
     Random randomObj = new Random();
     int randomX = randomObj.nextInt((7 - 1)) + 1;
     int randomY = randomObj.nextInt((6 - 1)) + 1;
-
+//gets where ever the player location is behind the scenes and sets it to P
     map[playerLoc.getY()][playerLoc.getX()] = 'P';
     map[randomY][randomX] = '$';
 
 
 }
 
-
 public Player getPlayer() {
 	return user;
 }
 
 // Citation for method drawMap: https://www.geeksforgeeks.org/print-2-d-array-matrix-java/
-//print for game map
+// print for game map used at the start of playgame() in text app
 public static void drawMap(){
 System.out.println();
 for (int row=0; row<  map.length; row++)
@@ -59,9 +61,9 @@ for (int row=0; row<  map.length; row++)
 System.out.println();
 }
 
-
+//draw map that takes a location as a parameter for when the map is drawn again the 2nd time,
+//this is because the P location needs to be updated everytime player moves, used at the end of playgame() in text app
 public static void drawMap(Location loc){
-//System.out.println();
 map[loc.getY()][loc.getX()] = 'P';
 for (int row=0; row<  map.length; row++)
 {
@@ -75,17 +77,16 @@ System.out.println();
 
 }
 
-
+//method is used to update the location behind the scenes everytime a move is made
 public void moving(Direction x, Location loc){
-	// sets start position
-	// replaces last spot with an empty spot
-	// sets new player spot too
+	//Coding knowledge and code inspisred from pervious computer science course
 
-	//Coding knowledge and code inspisred from pervious computer computer science course
-	char temp = map[loc.getY()][loc.getX()];
+  //temporary map is made
+  char temp = map[loc.getY()][loc.getX()];
+  //current spot player is on is set as an empty spot on the temporary map
 	map[loc.getY()][loc.getX()] = ' ';
 
-
+  //reads which direction the player moves in and sets the new player location as in given direction
 	if (x == Direction.LEFT){
 		loc.setX(loc.getX()-1);
 	}
@@ -98,13 +99,15 @@ public void moving(Direction x, Location loc){
 	else if( x == Direction.UP){
 		loc.setY(loc.getY()-1);
 	}
+  //old map is set to the temporary map
 	map[loc.getY()][loc.getX()] = temp;
 }
 
 public int isValid(Location loc, Direction x){
-    /*
-     * checks if the direction inputed has a wall, or an object, if it does, returns false
-     */
+
+     //isValid takes the players input in console and players location and determines if its
+     //a valid move or a game winning one, used in textApp
+     //if method returns 0 there is a wall, if 1 there is the money, if 2 there is no obstacle
 
     if (x == Direction.LEFT){
         if(map[loc.getY()][loc.getX()-1] == 'X'){
