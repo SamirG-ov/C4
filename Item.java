@@ -1,6 +1,5 @@
 
 
 enum Item {
-	POISON, POTION;
+	POISON, POTION, COINS;
 }
-
