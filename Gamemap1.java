@@ -79,8 +79,8 @@ public void setLootLocation(int x, int y) {
 //}
 
 public void moving(Direction i) {
-	int x = playerLoc.getX();
-	int y = playerLoc.getY();
+	int x = user.getLocation().getX();
+	int y = user.getLocation().getY();
 
   if (i == Direction.UP) {
       user.getLocation().setY(y - 1);

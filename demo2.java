@@ -23,10 +23,6 @@ import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.input.*;
 
-//REFERENCES:
-//*General coding knowledge: Used information learn in Nathaly Verwaal's Lectures and powerpoints
-//*General coding knowledge: Java programming tutorials by "Absolute Zero" https://www.youtube.com/playlist?list=PLbjOkfqIeibi_rJSoDBKHFWxxVyJHj1Sa
-// Citations at handlekey events and animation timer too
 public class demo2 extends Application {
 
 	//initializes player speed
@@ -37,6 +33,7 @@ public class demo2 extends Application {
     //#################################
     private Player user;
     private Gamemap1 gamemap = new Gamemap1();
+
     //#################################
 
     public String bagOfCoins = "https://i.gyazo.com/d2b097f96fbcca37008ebfac4bb0c121.png";
@@ -53,7 +50,7 @@ public class demo2 extends Application {
 	// direction Direction
 	Direction whichDirection;
 	//initializes second gamestage
-	Stage gameStage = new Stage();
+	private Stage gameStage = new Stage();
     // CONSTRUCTORS
     public demo2() {}
 
@@ -95,7 +92,7 @@ public class demo2 extends Application {
 				});
 
 
-        Scene scene = new Scene(pane, 1280, 720);
+        Scene scene = new Scene(pane, 400, 200);
         stage.setTitle("Demo 2");
         stage.setScene(scene);
         stage.show();
@@ -111,7 +108,6 @@ public class demo2 extends Application {
 
 	   //starts moving player, added links to sprites of player facing different directions
 	   //not sure how to implement them yet
-		 // citation for key events https://docs.oracle.com/javase/8/javafx/api/javafx/animation/AnimationTimer.html
 	   gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 		   public void handle(KeyEvent pressed){
 
@@ -163,7 +159,6 @@ public class demo2 extends Application {
 	   gameStage.show();
 
 	   //determines speed of player
-		 //Citation https://docs.oracle.com/javase/8/javafx/api/javafx/animation/AnimationTimer.html
 	   AnimationTimer timer = new AnimationTimer() {
            @Override
            public void handle(long now) {
@@ -182,28 +177,33 @@ public class demo2 extends Application {
    			   	if(whichDirection == Direction.DOWN){
    			   		speedy = speedy + 85;
    			   	}*/
-
-
+						int x = 0;
+						int y = 0;
 						int isItValid = gamemap.isValid(gamemap.getPlayer().getLocation(), whichDirection);
 						if (isItValid == 2) {
 							gamemap.moving(whichDirection);
-							int x = gamemap.getPlayer().getLocation().getX();
-							int y = gamemap.getPlayer().getLocation().getY();
-							player1.relocate(x*46, y*85);
-						} else if (isItValid == 1) {
+							x = gamemap.getPlayer().getLocation().getX();
+							y = gamemap.getPlayer().getLocation().getY();
+							player1.relocate(x*46 - 46, y*85 - 85);
 
+						} /*else if (isItValid == 1) {
+							isItValid = 2;
+							System.out.println("Congratulations you found a bag of gold!");
+							actualGame(gameStage);
+						}*/
 
-						}
            }
        };
        timer.start();
    }
 
 	public void setLocations() {
-		player1.relocate(46,85);
+		player1.relocate(0 - 46,0 - 85);
+		gamemap.getPlayer().getLocation().setX(0);
+		gamemap.getPlayer().getLocation().setY(0);
 		Random randomObj = new Random();
-		int randomX = randomObj.nextInt((20+1));
-		int randomY = randomObj.nextInt((10+1));
+		int randomX = randomObj.nextInt((20) + 1);
+		int randomY = randomObj.nextInt((10) + 1);
 		coins1.relocate(randomX*46, randomY*85);
 		gamemap.setLootLocation(randomX, randomY);
 	}
