@@ -23,6 +23,10 @@ import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.input.*;
 
+//REFERENCES:
+//*General coding knowledge: Used information learn in Nathaly Verwaal's Lectures and powerpoints
+//*General coding knowledge: Java programming tutorials by "Absolute Zero" https://www.youtube.com/playlist?list=PLbjOkfqIeibi_rJSoDBKHFWxxVyJHj1Sa
+// Citations at handlekey events and animation timer too
 public class demo2 extends Application {
 
 	//initializes player speed
@@ -107,6 +111,7 @@ public class demo2 extends Application {
 
 	   //starts moving player, added links to sprites of player facing different directions
 	   //not sure how to implement them yet
+		 // citation for key events https://docs.oracle.com/javase/8/javafx/api/javafx/animation/AnimationTimer.html
 	   gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 		   public void handle(KeyEvent pressed){
 
@@ -158,6 +163,7 @@ public class demo2 extends Application {
 	   gameStage.show();
 
 	   //determines speed of player
+		 //Citation https://docs.oracle.com/javase/8/javafx/api/javafx/animation/AnimationTimer.html
 	   AnimationTimer timer = new AnimationTimer() {
            @Override
            public void handle(long now) {
