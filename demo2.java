@@ -2,7 +2,7 @@ import javafx.application.Application;
 
 import java.util.Random;
 
-import javafx.animation.AnimationTimer;
+import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.image.*;
@@ -24,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.*;
 
 public class demo2 extends Application {
+			 //TO-DO ENEMY, TIMELINE, COLLISION, MAYBE A NEW MAP,		 //TO-DO ENEMY, TIMELINE, COLLISION, MAYBE A NEW MAP,
 
 	//initializes player speed
 	public AnimationTimer atimer;
@@ -33,6 +34,8 @@ public class demo2 extends Application {
     //#################################
     private Player user;
     private Gamemap1 gamemap = new Gamemap1();
+		//private Group gamePane = new Group(player1, coins1);
+		//private Scene gameScene = new Scene(gamePane, 46*20, 85*10);
 
     //#################################
 
@@ -79,7 +82,7 @@ public class demo2 extends Application {
         hb.getChildren().add(b3);
         hb.setAlignment(Pos.CENTER);
         pane.setCenter(hb);
-
+		 //TO-DO ENEMY, TIMELINE, COLLISION, MAYBE A NEW MAP,
         //on button press start uses gameStage here as parameter to in method
         //actualGame to start new stage
         b1.setOnAction(e -> {
@@ -102,8 +105,8 @@ public class demo2 extends Application {
 
    public void actualGame(Stage gameStage){
 		 setLocations();
-	   Group gamePane = new Group(player1, coins1);
-	   Scene gameScene = new Scene(gamePane, 46*20, 85*10);
+	   /*Group gamePane = new Group(player1, coins1);
+	   Scene gameScene = new Scene(gamePane, 46*20, 85*10);*/
 
 
 	   //starts moving player, added links to sprites of player facing different directions
@@ -158,25 +161,16 @@ public class demo2 extends Application {
 	   gameStage.setScene(gameScene);
 	   gameStage.show();
 
+
+		 //TO-DO ENEMY, TIMELINE, COLLISION, MAYBE A NEW MAP,
+
+
+
 	   //determines speed of player
 	   AnimationTimer timer = new AnimationTimer() {
            @Override
            public void handle(long now) {
-   		/*	int speedx = 0;
-   			int speedy = 0;
 
-   			   	if(whichDirection == Direction.UP){
-							speedy = speedy - 85;
-   			   	}
-   			   	if(whichDirection == Direction.LEFT){
-   			   		speedx = speedx - 46;
-   			   	}
-   			   	if(whichDirection == Direction.RIGHT){
-   			   		speedx = speedx + 46;
-   			   	}
-   			   	if(whichDirection == Direction.DOWN){
-   			   		speedy = speedy + 85;
-   			   	}*/
 						int x = 0;
 						int y = 0;
 						int isItValid = gamemap.isValid(gamemap.getPlayer().getLocation(), whichDirection);
