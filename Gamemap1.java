@@ -50,6 +50,13 @@ public Enemy getEnemy() {
 }
 
 public void setLootLocation(int x, int y) {
+	for (int row=0; row < map.length; row++) {
+		for(int col=0; col< map[row].length; col++) {
+			if (map[row][col] == '$') {
+				map[row][col] = ' ';
+			}
+    }
+	}
 	map[y][x] = '$';
 }
 
@@ -100,7 +107,7 @@ public void moving(Direction i) {
 
 public int isValid(Location loc, Direction x){
     /*
-     * checks if the direction inputed has a wall, or an object, if it does, returns false
+     * checks if the direction inputed has a wall, or an object, if it does, returns 0
      */
 
     if (x == Direction.LEFT){

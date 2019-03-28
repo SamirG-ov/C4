@@ -37,7 +37,7 @@ public class demo2 extends Application {
     //#################################
 
     public String bagOfCoins = "https://i.gyazo.com/d2b097f96fbcca37008ebfac4bb0c121.png";
-    Image coinsSprite = new Image(bagOfCoins);
+    Image coinsSprite = new Image(bagOfCoins, 46, 85, false, false);
         public Node coins1 = new ImageView(coinsSprite);
 
     private TextField tf;
@@ -185,13 +185,13 @@ public class demo2 extends Application {
 
 	public void setStartConditions() {
 		player1.relocate(0, 0);
-		gamemap.getPlayer().getLocation().setX(0);
-		gamemap.getPlayer().getLocation().setY(0);
+		gamemap.getPlayer().getLocation().setX(1);
+		gamemap.getPlayer().getLocation().setY(1);
 		Random randomObj = new Random();
-		int randomX = randomObj.nextInt((20) + 1);
-		int randomY = randomObj.nextInt((10) + 1);
-		coins1.relocate(randomX*46 - 46, randomY*85 - 85);
-		gamemap.setLootLocation(randomX, randomY);
+		int randomX = randomObj.nextInt(20);
+		int randomY = randomObj.nextInt(10);
+		coins1.relocate(randomX*46, randomY*85);
+		gamemap.setLootLocation(randomX + 1, randomY + 1);
 	}
 //moves the player by gettings its sizes and adding its dimensions to it by using java
 //if the player moves out of the window the player respawns in a random grid on the gap
