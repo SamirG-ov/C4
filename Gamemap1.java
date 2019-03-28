@@ -51,6 +51,28 @@ public void setLootLocation(int x, int y) {
 	}
 	map[y][x] = '$';
 }
+
+public void setEnemyLocation(int x, int y) {
+	for (int row=0; row < map.length; row++) {
+		for(int col=0; col< map[row].length; col++) {
+			if (map[row][col] == 'E') {
+				map[row][col] = ' ';
+			}
+    }
+	}
+	map[y][x] = 'E';
+}
+
+public void setPlayerLocation(int x, int y) {
+	for (int row=0; row < map.length; row++) {
+		for(int col=0; col< map[row].length; col++) {
+			if (map[row][col] == 'P') {
+				map[row][col] = ' ';
+			}
+    }
+	}
+	map[y][x] = 'P';
+}
 //CONSOLE BASED CONTROLS RENDERED OBSOLETE
 //public void moving(Direction x, Location loc){
 //	// sets start position
@@ -81,42 +103,52 @@ public void moving(Direction i, boolean whoMoves) {
 		int y = user.getLocation().getY();
 
 	  if (i == Direction.UP) {
-	      user.getLocation().setY(y - 1);
+				y--;
+	      user.getLocation().setY(y);
 	  }
 	  else if (i==Direction.DOWN){
-	      user.getLocation().setY(y + 1);
+				y++;
+	      user.getLocation().setY(y);
 	  }
 	  else if (i==Direction.LEFT){
-	      user.getLocation().setX(x - 1);
+				x--;
+	      user.getLocation().setX(x);
 	  }
 	  else if (i==Direction.RIGHT){
-	      user.getLocation().setX(x + 1);
+				x++;
+	      user.getLocation().setX(x);
 	  }
-	} else if (whoMoves = false) {
+		setPlayerLocation(x, y);
+	} else {
 		int x = enemy.getLocation().getX();
 		int y = enemy.getLocation().getY();
 
 	  if (i == Direction.UP) {
-	      enemy.getLocation().setY(y - 1);
+				y--;
+	      enemy.getLocation().setY(y);
 	  }
 	  else if (i==Direction.DOWN){
-	      enemy.getLocation().setY(y + 1);
+				y++;
+	      enemy.getLocation().setY(y);
 	  }
 	  else if (i==Direction.LEFT){
-	      enemy.getLocation().setX(x - 1);
+				x--;
+	      enemy.getLocation().setX(x);
 	  }
 	  else if (i==Direction.RIGHT){
-	      enemy.getLocation().setX(x + 1);
+				x++;
+	      enemy.getLocation().setX(x);
 	  }
+		setEnemyLocation(x, y);
 
-		for (int row=0; row<  map.length; row++)
+		/*for (int row=0; row<  map.length; row++)
     {
         for(int col=0; col< map[row].length; col++){
             System.out.print(map[row][col] + "  ");
         }
         System.out.println();
     }
-    System.out.println();
+    System.out.println();*/
 }
 }
 

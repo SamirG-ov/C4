@@ -27,13 +27,16 @@ public class demo2 extends Application {
 
 	//initializes player speed
 	public AnimationTimer atimer;
-
+	private Label deadL = new Label("GAMEOVER");
+	private Label moneycounter = new Label("$: ");
+	private int counter = 0;
 	private char move;
+	boolean isItOverYet = false;
 
     //#################################
     private Player user;
     private Gamemap1 gamemap = new Gamemap1();
-		private int isItValid = 2;
+		private int isItValid = 0;
     //#################################
 
 		public String enemySpriteLocation = "https://i.gyazo.com/dc7a81caa79fbae63b1f32e103d8bac0.png";
@@ -52,8 +55,9 @@ public class demo2 extends Application {
 		public Node player1 = new ImageView(playerSprite);
 
 	// direction Direction
-	Direction whichDirection;
+	Direction whichDirection = Direction.NONE;
 	//initializes second gamestage
+	private Stage deadStage = new Stage();
 	private Stage gameStage = new Stage();
     // CONSTRUCTORS
     public demo2() {}
@@ -71,6 +75,8 @@ public class demo2 extends Application {
         vb.getChildren().add(label1);
         vb.setAlignment(Pos.CENTER);
         pane.setTop(vb);
+				pane.setStyle("-fx-background-color: red");
+				label1.setStyle("-fx-text-fill: black; -fx-font-size: 40px;");
 
         HBox hb = new HBox();
         Button b1 = new Button("Start");
@@ -104,7 +110,7 @@ public class demo2 extends Application {
 
    public void actualGame(Stage gameStage){
 		 setStartConditions();
-	   Group gamePane = new Group(player1, coins1, enemy1);
+		 Group gamePane = new Group(player1, coins1, enemy1, moneycounter);
 	   Scene gameScene = new Scene(gamePane, 46*20, 85*10);
 
 
@@ -155,7 +161,7 @@ public class demo2 extends Application {
 	   }
 	   });
 
-
+		 moneycounter.setStyle("-fx-font-size: 40px;");
 	   gameStage.setTitle("Demo 2");
 	   gameStage.setScene(gameScene);
 	   gameStage.show();
@@ -168,45 +174,70 @@ public class demo2 extends Application {
 						 if(now - lastMapUpdate >= 28_000_000){
 						int x = 0;
 						int y = 0;
-						int isItValid = gamemap.isValid(gamemap.getPlayer().getLocation(), whichDirection, true);
-						if (isItValid == 2) {
-							gamemap.moving(whichDirection, true);
-							x = gamemap.getPlayer().getLocation().getX();
-							y = gamemap.getPlayer().getLocation().getY();
-							player1.relocate(x*46 - 46, y*85 - 85);
+						if (whichDirection != Direction.NONE) {
 
-						} else if (isItValid == 1) {
-							System.out.println("Congratulations you found a bag of gold!");
-							setStartConditions();
-							isItValid = 2;
-						}
-						Direction enemyMove = gamemap.getEnemy().getMove(gamemap.getPlayer());
-						isItValid = gamemap.isValid(gamemap.getEnemy().getLocation(), enemyMove, false);
-						if (isItValid == 2) {
-							gamemap.moving(whichDirection, false);
-							x = gamemap.getEnemy().getLocation().getX();
-							y = gamemap.getEnemy().getLocation().getY();
-							enemy1.relocate(x*46 - 46, y*85 - 85);
+							Direction enemyMove = gamemap.getEnemy().getMove(gamemap.getPlayer());
+							isItValid = gamemap.isValid(gamemap.getEnemy().getLocation(), enemyMove, false);
+							if (isItValid == 2) {
+								gamemap.moving(enemyMove, false);
+								x = gamemap.getEnemy().getLocation().getX();
+								y = gamemap.getEnemy().getLocation().getY();
+								enemy1.relocate(x*46 - 46, y*85 - 85);
 
-						} else if (isItValid == 3) {
-							System.out.println("Awww you got caught, try again next time.");
-							//stage.close();
+							} else if (isItValid == 3) {
+								setStartConditions();
+						 		gameStage.close();
+								gameOver(deadStage);
+								System.out.println("Awww you got caught, try again next time.");
+							}
+
+							int isItValid = gamemap.isValid(gamemap.getPlayer().getLocation(), whichDirection, true);
+							if (isItValid == 2) {
+								gamemap.moving(whichDirection, true);
+								x = gamemap.getPlayer().getLocation().getX();
+								y = gamemap.getPlayer().getLocation().getY();
+								player1.relocate(x*46 - 46, y*85 - 85);
+
+
+
+							} else if (isItValid == 1) {
+								counter++;
+                moneycounter.setText("$: " + Integer.toString(counter));
+								System.out.println("Congratulations you found a bag of gold!");
+								setStartConditions();
+								isItValid = 0;
+							}
 						}
+
+
 
 						lastMapUpdate = now;
 						}
            }
        };
        timer.start();
+
    }
 
+	 public void gameOver(Stage deadStage){
+       deadL.setStyle("-fx-font-size: 80px;");
+       BorderPane gamePane = new BorderPane(deadL);
+       Scene gameScene = new Scene(gamePane, 800, 400);
+       gamePane.setStyle("-fx-background-color: red");
+       deadL.setAlignment(Pos.CENTER);
+       deadStage.setTitle("Demo 2");
+       deadStage.setScene(gameScene);
+       deadStage.show();
+   }
+	 //multiple screens maybe, add more obstacles in new stages maybe, settings to fuck with AI
 	public void setStartConditions() {
 		player1.relocate(0, 0);
 		gamemap.getPlayer().getLocation().setX(1);
 		gamemap.getPlayer().getLocation().setY(1);
-		enemy1.relocate(gamemap.getEnemy().getLocation().getX()*46, gamemap.getEnemy().getLocation().getY()*85);
 		gamemap.getEnemy().getLocation().setX(20);
 		gamemap.getEnemy().getLocation().setY(10);
+		//enemy1.relocate(gamemap.getEnemy().getLocation().getX()*46, gamemap.getEnemy().getLocation().getY()*85);
+		enemy1.relocate(19*46, 9*85);
 		Random randomObj = new Random();
 		int randomX = randomObj.nextInt(20);
 		int randomY = randomObj.nextInt(10);
