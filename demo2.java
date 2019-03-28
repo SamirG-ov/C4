@@ -2,7 +2,7 @@ import javafx.application.Application;
 
 import java.util.Random;
 
-import javafx.animation.*;
+import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.image.*;
@@ -24,7 +24,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.*;
 
 public class demo2 extends Application {
-			 //TO-DO ENEMY, TIMELINE, COLLISION, MAYBE A NEW MAP,		 //TO-DO ENEMY, TIMELINE, COLLISION, MAYBE A NEW MAP,
 
 	//initializes player speed
 	public AnimationTimer atimer;
@@ -34,9 +33,7 @@ public class demo2 extends Application {
     //#################################
     private Player user;
     private Gamemap1 gamemap = new Gamemap1();
-		//private Group gamePane = new Group(player1, coins1);
-		//private Scene gameScene = new Scene(gamePane, 46*20, 85*10);
-
+		private int isItValid = 2;
     //#################################
 
     public String bagOfCoins = "https://i.gyazo.com/d2b097f96fbcca37008ebfac4bb0c121.png";
@@ -82,7 +79,7 @@ public class demo2 extends Application {
         hb.getChildren().add(b3);
         hb.setAlignment(Pos.CENTER);
         pane.setCenter(hb);
-		 //TO-DO ENEMY, TIMELINE, COLLISION, MAYBE A NEW MAP,
+
         //on button press start uses gameStage here as parameter to in method
         //actualGame to start new stage
         b1.setOnAction(e -> {
@@ -104,9 +101,9 @@ public class demo2 extends Application {
     // stage that will have actual game in it, created by b1.setOnAction
 
    public void actualGame(Stage gameStage){
-		 setLocations();
-	   /*Group gamePane = new Group(player1, coins1);
-	   Scene gameScene = new Scene(gamePane, 46*20, 85*10);*/
+		 setStartConditions();
+	   Group gamePane = new Group(player1, coins1);
+	   Scene gameScene = new Scene(gamePane, 46*20, 85*10);
 
 
 	   //starts moving player, added links to sprites of player facing different directions
@@ -161,11 +158,6 @@ public class demo2 extends Application {
 	   gameStage.setScene(gameScene);
 	   gameStage.show();
 
-
-		 //TO-DO ENEMY, TIMELINE, COLLISION, MAYBE A NEW MAP,
-
-
-
 	   //determines speed of player
 	   AnimationTimer timer = new AnimationTimer() {
            @Override
@@ -180,25 +172,25 @@ public class demo2 extends Application {
 							y = gamemap.getPlayer().getLocation().getY();
 							player1.relocate(x*46 - 46, y*85 - 85);
 
-						} /*else if (isItValid == 1) {
-							isItValid = 2;
+						} else if (isItValid == 1) {
 							System.out.println("Congratulations you found a bag of gold!");
-							actualGame(gameStage);
-						}*/
+							setStartConditions();
+							isItValid = 2;
+						}
 
            }
        };
        timer.start();
    }
 
-	public void setLocations() {
-		player1.relocate(0 - 46,0 - 85);
+	public void setStartConditions() {
+		player1.relocate(0, 0);
 		gamemap.getPlayer().getLocation().setX(0);
 		gamemap.getPlayer().getLocation().setY(0);
 		Random randomObj = new Random();
 		int randomX = randomObj.nextInt((20) + 1);
 		int randomY = randomObj.nextInt((10) + 1);
-		coins1.relocate(randomX*46, randomY*85);
+		coins1.relocate(randomX*46 - 46, randomY*85 - 85);
 		gamemap.setLootLocation(randomX, randomY);
 	}
 //moves the player by gettings its sizes and adding its dimensions to it by using java
