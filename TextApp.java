@@ -3,7 +3,7 @@ public class TextApp {
 
 	public static void main(String[] args){
 		TextApp ta = new TextApp();
-		ta.playgame();
+		//ta.playgame();
 	}
 	
 	private void playgame(){
