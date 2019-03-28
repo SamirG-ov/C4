@@ -36,9 +36,13 @@ public class demo2 extends Application {
 		private int isItValid = 2;
     //#################################
 
+		public String enemySpriteLocation = "https://i.gyazo.com/dc7a81caa79fbae63b1f32e103d8bac0.png";
+		Image enemySprite = new Image(enemySpriteLocation, 46, 85, false, false);
+		public Node enemy1 = new ImageView(enemySprite);
+
     public String bagOfCoins = "https://i.gyazo.com/d2b097f96fbcca37008ebfac4bb0c121.png";
     Image coinsSprite = new Image(bagOfCoins, 46, 85, false, false);
-        public Node coins1 = new ImageView(coinsSprite);
+    public Node coins1 = new ImageView(coinsSprite);
 
     private TextField tf;
 
@@ -57,9 +61,7 @@ public class demo2 extends Application {
     public static void main(String[] args) {
     	launch(args);
         }
-    public void setPlayerSprite(Image ps){
-    	player1 = new ImageView(ps);
-    }
+
     public void start (Stage stage) {
         BorderPane pane = new BorderPane();
 
@@ -102,7 +104,7 @@ public class demo2 extends Application {
 
    public void actualGame(Stage gameStage){
 		 setStartConditions();
-	   Group gamePane = new Group(player1, coins1);
+	   Group gamePane = new Group(player1, coins1, enemy1);
 	   Scene gameScene = new Scene(gamePane, 46*20, 85*10);
 
 
@@ -160,14 +162,15 @@ public class demo2 extends Application {
 
 	   //determines speed of player
 	   AnimationTimer timer = new AnimationTimer() {
+			 			private long lastMapUpdate = 0;
            @Override
            public void handle(long now) {
-
+						 if(now - lastMapUpdate >= 28_000_000){
 						int x = 0;
 						int y = 0;
-						int isItValid = gamemap.isValid(gamemap.getPlayer().getLocation(), whichDirection);
+						int isItValid = gamemap.isValid(gamemap.getPlayer().getLocation(), whichDirection, true);
 						if (isItValid == 2) {
-							gamemap.moving(whichDirection);
+							gamemap.moving(whichDirection, true);
 							x = gamemap.getPlayer().getLocation().getX();
 							y = gamemap.getPlayer().getLocation().getY();
 							player1.relocate(x*46 - 46, y*85 - 85);
@@ -177,7 +180,21 @@ public class demo2 extends Application {
 							setStartConditions();
 							isItValid = 2;
 						}
+						Direction enemyMove = gamemap.getEnemy().getMove(gamemap.getPlayer());
+						isItValid = gamemap.isValid(gamemap.getEnemy().getLocation(), enemyMove, false);
+						if (isItValid == 2) {
+							gamemap.moving(whichDirection, false);
+							x = gamemap.getEnemy().getLocation().getX();
+							y = gamemap.getEnemy().getLocation().getY();
+							enemy1.relocate(x*46 - 46, y*85 - 85);
 
+						} else if (isItValid == 3) {
+							System.out.println("Awww you got caught, try again next time.");
+							//stage.close();
+						}
+
+						lastMapUpdate = now;
+						}
            }
        };
        timer.start();
@@ -187,6 +204,9 @@ public class demo2 extends Application {
 		player1.relocate(0, 0);
 		gamemap.getPlayer().getLocation().setX(1);
 		gamemap.getPlayer().getLocation().setY(1);
+		enemy1.relocate(gamemap.getEnemy().getLocation().getX()*46, gamemap.getEnemy().getLocation().getY()*85);
+		gamemap.getEnemy().getLocation().setX(20);
+		gamemap.getEnemy().getLocation().setY(10);
 		Random randomObj = new Random();
 		int randomX = randomObj.nextInt(20);
 		int randomY = randomObj.nextInt(10);

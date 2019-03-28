@@ -1,7 +1,7 @@
 import java.util.Random;
 public class Gamemap1{
 //game map
-
+//private instance variables
 private Player user;
 private Enemy enemy;
 private Location playerLoc = new Location(2, 2);
@@ -25,30 +25,22 @@ private static char[][] map = new char[][] {
 };
 
 public Gamemap1(){
-
+//creating intances of 2 objects, Player and Enemy
     user = new Player(playerLoc);
-    enemy = new Enemy(18, 8);
+    enemy = new Enemy(10, 20);
 
-    Random randomObj = new Random();
-    int randomX = randomObj.nextInt((20)) + 1;
-    int randomY = randomObj.nextInt((10)) + 1;
-
+//Spawning P at the location of player & E at the location of the enemy
     map[playerLoc.getY()][playerLoc.getX()] = 'P';
-    //map[enemy.getLocation().getX()][enemy.getLocation().getY()] = 'E';
-    //map[randomY][randomX] = '$';
-
+    map[enemy.getLocation().getX()][enemy.getLocation().getY()] = 'E';
 
 }
-
-
 public Player getPlayer() {
 	return user;
 }
-
 public Enemy getEnemy() {
 	return enemy;
 }
-
+//Spawns the loot
 public void setLootLocation(int x, int y) {
 	for (int row=0; row < map.length; row++) {
 		for(int col=0; col< map[row].length; col++) {
@@ -59,8 +51,6 @@ public void setLootLocation(int x, int y) {
 	}
 	map[y][x] = '$';
 }
-
-
 //CONSOLE BASED CONTROLS RENDERED OBSOLETE
 //public void moving(Direction x, Location loc){
 //	// sets start position
@@ -85,68 +75,147 @@ public void setLootLocation(int x, int y) {
 //	map[loc.getY()][loc.getX()] = temp;
 //}
 
-public void moving(Direction i) {
-	int x = user.getLocation().getX();
-	int y = user.getLocation().getY();
+public void moving(Direction i, boolean whoMoves) {
+	if (whoMoves) {
+		int x = user.getLocation().getX();
+		int y = user.getLocation().getY();
 
-  if (i == Direction.UP) {
-      user.getLocation().setY(y - 1);
-  }
-  else if (i==Direction.DOWN){
-      user.getLocation().setY(y + 1);
-  }
-  else if (i==Direction.LEFT){
-      user.getLocation().setX(x - 1);
-  }
-  else if (i==Direction.RIGHT){
-      user.getLocation().setX(x + 1);
-  }
+	  if (i == Direction.UP) {
+	      user.getLocation().setY(y - 1);
+	  }
+	  else if (i==Direction.DOWN){
+	      user.getLocation().setY(y + 1);
+	  }
+	  else if (i==Direction.LEFT){
+	      user.getLocation().setX(x - 1);
+	  }
+	  else if (i==Direction.RIGHT){
+	      user.getLocation().setX(x + 1);
+	  }
+	} else if (whoMoves = false) {
+		int x = enemy.getLocation().getX();
+		int y = enemy.getLocation().getY();
 
+	  if (i == Direction.UP) {
+	      enemy.getLocation().setY(y - 1);
+	  }
+	  else if (i==Direction.DOWN){
+	      enemy.getLocation().setY(y + 1);
+	  }
+	  else if (i==Direction.LEFT){
+	      enemy.getLocation().setX(x - 1);
+	  }
+	  else if (i==Direction.RIGHT){
+	      enemy.getLocation().setX(x + 1);
+	  }
 
+		for (int row=0; row<  map.length; row++)
+    {
+        for(int col=0; col< map[row].length; col++){
+            System.out.print(map[row][col] + "  ");
+        }
+        System.out.println();
+    }
+    System.out.println();
+}
 }
 
-public int isValid(Location loc, Direction x){
+
+
+
+public int isValid(Location loc, Direction x, boolean whoMoves){
     /*
      * checks if the direction inputed has a wall, or an object, if it does, returns 0
      */
+		if (whoMoves) {
+			if (x == Direction.LEFT){
+	        if(map[loc.getY()][loc.getX()-1] == 'X'){
+	            return 0;
+	        }
+	        else if(map[loc.getY()][loc.getX()-1] == '$'){
+	            return 1;
+	        }
+					else if(map[loc.getY()][loc.getX()-1] == 'E'){
+							return 3;
+					}
 
-    if (x == Direction.LEFT){
-        if(map[loc.getY()][loc.getX()-1] == 'X'){
-            return 0;
-        }
-        else if(map[loc.getY()][loc.getX()-1] == '$'){
-            return 1;
-        }
+	    }
+	    if (x == Direction.RIGHT){
+	        if(map[loc.getY()][loc.getX()+1] == 'X'){
+	            return 0;
+	        }
+	        else if(map[loc.getY()][loc.getX()+1] == '$'){
+	            return 1;
+	        }
+					else if(map[loc.getY()][loc.getX()+1] == 'E'){
+							return 3;
+					}
 
-    }
-    if (x == Direction.RIGHT){
-        if(map[loc.getY()][loc.getX()+1] == 'X'){
-            return 0;
-        }
-        else if(map[loc.getY()][loc.getX()+1] == '$'){
-            return 1;
-        }
+	    }
+	    if (x == Direction.UP){
+	        if(map[loc.getY()-1][loc.getX()] == 'X'){
+	            return 0;
+	        }
+	        else if(map[loc.getY()-1][loc.getX()] == '$'){
+	            return 1;
+	        }
+					else if(map[loc.getY()-1][loc.getX()] == 'E'){
+							return 3;
+					}
 
-    }
-    if (x == Direction.UP){
-        if(map[loc.getY()-1][loc.getX()] == 'X'){
-            return 0;
-        }
-        else if(map[loc.getY()-1][loc.getX()] == '$'){
-            return 1;
-        }
+	    }
+	    if (x == Direction.DOWN){
+	        if(map[loc.getY()+1][loc.getX()] == 'X'){
+	            return 0;
+	        }
+	        else if(map[loc.getY()+1][loc.getX()] == '$'){
+	            return 1;
+	        }
+					else if(map[loc.getY()+1][loc.getX()] == 'E'){
+							return 3;
+					}
 
-    }
-    if (x == Direction.DOWN){
-        if(map[loc.getY()+1][loc.getX()] == 'X'){
-            return 0;
-        }
-        else if(map[loc.getY()+1][loc.getX()] == '$'){
-            return 1;
-        }
+	    }
 
-    }
-    return 2;
-}
+		}
+		else {
+			if (x == Direction.LEFT){
+	        if(map[loc.getY()][loc.getX()-1] == 'X'){
+	            return 0;
+	        }
+	        else if(map[loc.getY()][loc.getX()-1] == 'P'){
+	            return 3;
+	        }
 
+	    }
+	    if (x == Direction.RIGHT){
+	        if(map[loc.getY()][loc.getX()+1] == 'X'){
+	            return 0;
+	        }
+	        else if(map[loc.getY()][loc.getX()+1] == 'P'){
+	            return 3;
+	        }
+
+	    }
+	    if (x == Direction.UP){
+	        if(map[loc.getY()-1][loc.getX()] == 'X'){
+	            return 0;
+	        }
+	        else if(map[loc.getY()-1][loc.getX()] == 'P'){
+	            return 3;
+	        }
+
+	    }
+	    if (x == Direction.DOWN){
+	        if(map[loc.getY()+1][loc.getX()] == 'X'){
+	            return 0;
+	        }
+	        else if(map[loc.getY()+1][loc.getX()] == 'P'){
+	            return 3;
+	        }
+
+	    }
+		}
+		return 2;
+	}
 }
