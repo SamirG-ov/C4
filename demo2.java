@@ -101,7 +101,7 @@ public class demo2 extends Application {
 
 
         Scene scene = new Scene(pane, 400, 200);
-        stage.setTitle("Demo 2");
+        stage.setTitle("Demo 3");
         stage.setScene(scene);
         stage.show();
     }
